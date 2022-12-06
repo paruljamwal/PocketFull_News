@@ -14,18 +14,83 @@ import {
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-
+import { Link as Linkpage } from "react-router-dom";
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [err, setError] = useState({});
+
+  // fetch values from inputbox
+  const [registerData, setRegisterdata] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+
+  });
+
+  //validations...
+  const registerValidations = (val) => {
+    //    console.log(val.confirm_password==val.password,"val");
+    const err = {};
+
+    var regexEmail = /\S+@\S+\.\S+/;
+    var regexPassword = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    const regexPhone = /^[\d,\s,\+,\-]{10}/;
+
+    if (!val.email) {
+      err.email = "email is required";
+    } else if (!regexEmail.test(val.email)) {
+      err.email = "Please enter valid email address!";
+    }
+    if (!val.fullname) {
+      err.fullname = "fullname is required";
+    } else if (val.fullname.length < 3) {
+      err.fullname = "fullname should have atleast 3 characters!";
+    } else if (val.fullname.length >= 15) {
+      err.fullname = "fullname should have atmax 15 characters!";
+    }
+
+
+    if (!val.password) {
+      err.password = "password is required";
+    } else if (val.password.length < 6) {
+      err.password = "password should have atleast 6 characters!";
+    } else if (!regexPassword.test(val.password)) {
+      err.password = "password should have strings,numbers,symblys!";
+    }  
+    return err;
+  };
+
+  //fetch value from inputbox....
+  const handelRegister = (e) => {
+    // console.log(e.target.id);
+    const { id, value } = e.target;
+    setRegisterdata({ ...registerData, [id]: value });
+    setError(registerValidations(registerData));
+  };
+
+
+  //onSubmit user data....
+  const onSubmitData = () => {
+    console.log("safasf");
+    // console.log(registerData, "reg");
+    setError(registerValidations(registerData));
+  };
+
+
+  useEffect(() => {
+    if (Object.keys(err).length === 0) {
+      // dispatch(RegisterUser(registerData));
+    }
+  }, [err]);
 
   return (
     <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
+      bg={useColorModeValue('gray.50', 'rgb(104,77,175)')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Box
           rounded={'lg'}
@@ -33,28 +98,26 @@ export default function SignUp() {
           boxShadow={'lg'}
           p={8}>
           <Stack spacing={4}>
-            <HStack>
+          
               <Box>
-                <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                <FormControl id="fullName" isRequired>
+                  <FormLabel>Full Name</FormLabel>
+                  <Input placeholder='Full Name' id='fullname' type="text"  onChange={handelRegister} />
+                  <p>{err.fullname}</p>
                 </FormControl>
               </Box>
-              <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
-                </FormControl>
-              </Box>
-            </HStack>
+             
+         
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input placeholder='Email Address' id="email" type="email" onChange={handelRegister} />
+              <p>{err.email}</p>
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input placeholder='Password' id='password' type={showPassword ? 'text' : 'password'}  onChange={handelRegister} />
+                <p>{err.password}</p>
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -63,6 +126,7 @@ export default function SignUp() {
                     }>
                     {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
+                  
                 </InputRightElement>
               </InputGroup>
             </FormControl>
@@ -70,17 +134,18 @@ export default function SignUp() {
               <Button
                 loadingText="Submitting"
                 size="lg"
-                bg={'blue.400'}
+                bg={'rgb(104,77,175)'}
                 color={'white'}
+                click={onSubmitData}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: '#6950a7d2',
                 }}>
                 Sign up
               </Button>
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
+                Already a user? <Linkpage to="/signin" color={'rgb(104,77,175)'}>Login</Linkpage>
               </Text>
             </Stack>
           </Stack>
