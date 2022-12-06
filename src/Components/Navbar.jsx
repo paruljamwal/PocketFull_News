@@ -40,9 +40,9 @@ export default function Navbar() {
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>Logo</Box>
-        <Linkpage to="signin" ><Box>SignIn</Box></Linkpage>
-         <Linkpage to="signup" > <Box>SignUp</Box></Linkpage> 
+        <Linkpage to="/" ><Box>Logo</Box></Linkpage>
+        <Linkpage to="/signin" ><Box>SignIn</Box></Linkpage>
+         <Linkpage to="/signup" > <Box>SignUp</Box></Linkpage> 
           
 
           <Flex alignItems={'center'}>
