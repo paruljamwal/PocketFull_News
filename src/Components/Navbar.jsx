@@ -33,8 +33,9 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-export default function Navbar() {
-  const { colorMode, toggleColorMode } = useColorMode();
+export default function Navbar(name) {
+ 
+   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -73,11 +74,11 @@ export default function Navbar() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{name.name}</p>
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
+                  <MenuItem>9786756442</MenuItem>
                   <MenuItem>Account Settings</MenuItem>
                   <MenuItem>Logout</MenuItem>
                 </MenuList>

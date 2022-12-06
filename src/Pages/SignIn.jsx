@@ -12,11 +12,17 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import jwt_decode from "jwt-decode";
+import { useNavigate } from 'react-router';
+import { auth } from '../Firebase/firebase';
+// import jwt_decode from "jwt-decode";
 export default function SignIn() {
   const [err, setError] = useState({});
   const [user,setUser] = useState();
+  const [submitButtonDis, setSubmitButtonDis] = useState(false);
+  const navigate = useNavigate()
+ 
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -53,35 +59,24 @@ export default function SignIn() {
     return err;
   };
 
+
+
   //form submission....
-  const handelSubmit = (e) => {
-    e.preventDefault();
-    setError(loginValidations(login));
-    console.log(login);
+  const handelSubmit = () => {
+   setError(loginValidations(login));
+   setSubmitButtonDis(true);
+   signInWithEmailAndPassword(auth,login.email,login.password)
+   .then(async(r) => {
+    setSubmitButtonDis(false);
+    navigate("/")
+
+  })
+  .catch((e) => {
+    setSubmitButtonDis(false);
+    setError(e.message);
+  });
+ 
   };
-
-  // google login.....
-  function handleCallbackResponse(response) {
-    //   console.log("Encoded JWT ID token" + response.credential);
-    let userObject = jwt_decode(response.credential);
-    console.log(userObject);
-    setUser(userObject);
-  }
-
-  const google = window.google;
-  useEffect(() => {
-    google.accounts.id.initialize({
-      client_id:
-        "224340966466-a78gscr8ktgtr6tp17soajavvr1dkl39.apps.googleusercontent.com",
-      callback: handleCallbackResponse,
-    });
-
-    google.accounts.id.renderButton(document.getElementById("googleSign"), {
-      theme: "outline",
-      width: "100%",
-      padding: "10px 30px",
-    });
-  }, []);
 
 
 
@@ -118,12 +113,13 @@ export default function SignIn() {
                  onClick={handelSubmit}
                 bg={'rgb(104,77,175)'}
                 color={'white'}
+                disabled={submitButtonDis}
                 _hover={{
                   bg: '#715ba9',
                 }}>
                 Sign in
               </Button>
-              <div id="googleSign"></div>
+              {/* <div id="googleSign"></div>/ */}
             </Stack>
           </Stack>
         </Box>
