@@ -17,6 +17,7 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Link as Linkpage } from "react-router-dom";
 
 const NavLink = ({ children }) => (
   <Link
@@ -40,7 +41,9 @@ export default function Navbar() {
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>Logo</Box>
-     
+        <Linkpage to="signin" ><Box>SignIn</Box></Linkpage>
+         <Linkpage to="signup" > <Box>SignUp</Box></Linkpage> 
+          
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>

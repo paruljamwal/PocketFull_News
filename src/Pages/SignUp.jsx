@@ -4,15 +4,13 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
-  Heading,
   Text,
   useColorModeValue,
-  Link,
+  InputGroup,
+
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -31,12 +29,11 @@ export default function SignUp() {
 
   //validations...
   const registerValidations = (val) => {
-    //    console.log(val.confirm_password==val.password,"val");
     const err = {};
 
     var regexEmail = /\S+@\S+\.\S+/;
     var regexPassword = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    const regexPhone = /^[\d,\s,\+,\-]{10}/;
+ 
 
     if (!val.email) {
       err.email = "email is required";
@@ -75,7 +72,7 @@ export default function SignUp() {
   const onSubmitData = () => {
     console.log("safasf");
     console.log(registerData, "reg");
-    // setError(registerValidations(registerData));
+    setError(registerValidations(registerData));
   };
 
 

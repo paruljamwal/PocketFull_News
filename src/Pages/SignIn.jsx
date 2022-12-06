@@ -13,9 +13,10 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-
+import jwt_decode from "jwt-decode";
 export default function SignIn() {
   const [err, setError] = useState({});
+  const [user,setUser] = useState();
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -59,7 +60,28 @@ export default function SignIn() {
     console.log(login);
   };
 
+  // google login.....
+  function handleCallbackResponse(response) {
+    //   console.log("Encoded JWT ID token" + response.credential);
+    let userObject = jwt_decode(response.credential);
+    console.log(userObject);
+    setUser(userObject);
+  }
 
+  const google = window.google;
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "224340966466-a78gscr8ktgtr6tp17soajavvr1dkl39.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("googleSign"), {
+      theme: "outline",
+      width: "100%",
+      padding: "10px 30px",
+    });
+  }, []);
 
 
 
