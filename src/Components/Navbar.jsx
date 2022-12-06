@@ -40,11 +40,7 @@ export default function Navbar() {
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>Logo</Box>
-          <Box>Learn</Box>
-          <Box>Blog</Box>
-          <Box>BookMark</Box>
-          <Box>UI KIT</Box>
-          <Box>LAIN NYA</Box>
+     
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>

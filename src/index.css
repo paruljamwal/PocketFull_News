@@ -4,3 +4,8 @@
     box-sizing: border-box;
 }
 
+Input[data-focus-visible]{
+    outline: none;
+    box-shadow: 0 0 0 0.125rem rgb(104,77,175);
+    border:1px solid rgb(104,77,175);
+}

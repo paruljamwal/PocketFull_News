@@ -74,8 +74,8 @@ export default function SignUp() {
   //onSubmit user data....
   const onSubmitData = () => {
     console.log("safasf");
-    // console.log(registerData, "reg");
-    setError(registerValidations(registerData));
+    console.log(registerData, "reg");
+    // setError(registerValidations(registerData));
   };
 
 
@@ -144,8 +144,8 @@ export default function SignUp() {
               </Button>
             </Stack>
             <Stack pt={6}>
-              <Text align={'center'}>
-                Already a user? <Linkpage to="/signin" color={'rgb(104,77,175)'}>Login</Linkpage>
+              <Text align={'center'} color={'rgb(104,77,175)'}>
+                Already a user? <Linkpage to="/signin" >Login</Linkpage>
               </Text>
             </Stack>
           </Stack>
