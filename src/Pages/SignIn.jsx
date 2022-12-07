@@ -16,7 +16,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { auth } from '../Firebase/firebase';
-// import jwt_decode from "jwt-decode";
+import jwt_decode from "jwt-decode";
 export default function SignIn() {
   const [err, setError] = useState({});
   const [user,setUser] = useState();
@@ -78,6 +78,29 @@ export default function SignIn() {
  
   };
 
+  // // google login.....
+  function handleCallbackResponse(response) {
+    //   console.log("Encoded JWT ID token" + response.credential);
+    let userObject = jwt_decode(response.credential);
+    // console.log(userObject);
+    setUser(userObject);
+  }
+
+  const google = window.google;
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "516186003987-jsh2psuumpc1ib4e8lgdbhv79csp2o90.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("googleSign"), {
+      theme: "outline",
+      width: "100%",
+      padding: "10px 30px",
+    });
+  }, []);
+
 
 
 
@@ -119,7 +142,7 @@ export default function SignIn() {
                 }}>
                 Sign in
               </Button>
-              {/* <div id="googleSign"></div>/ */}
+              <div id="googleSign"></div>
             </Stack>
           </Stack>
         </Box>

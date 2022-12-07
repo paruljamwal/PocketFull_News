@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '../Redux/News/newsAction';
 import moment from "moment";
-import InfiniteScroll from 'react-infinite-scroll-component';
 import "./Home.css"
+
 const Home = () => {
   const dispatch = useDispatch();
   let [news,setNews] = useState([]);
@@ -11,15 +11,14 @@ const Home = () => {
   const [hasMore,setHasMore] = useState(true);
   const newsApp = useSelector(store=>store.newsReducer.news)
   // console.log(newsApp);
+  const loading = useSelector(store=>store.newsReducer)
   
   const fetchMoreData =()=>{
   
     if(newsApp.length<100){
       setPage(pre=>pre+1)
-      setTimeout(() => {
-        console.log(page);
         // dispatch(fetchData(page));
-      }, 100);
+
     }
     else{
       setHasMore(false);
@@ -52,8 +51,11 @@ const Home = () => {
     dispatch(fetchData(page));
   },[dispatch,page,news,hasMore])
   return (
+    
     <div className='container' >
+   
     <div className='line' ></div>
+ 
       <span>Featured Artikel</span>
     <div className='features' >
       <div className='main' >
@@ -81,19 +83,14 @@ const Home = () => {
           }
       </div>
     </div>
+
     <div className='line' ></div>
 
     <span>Artikel Terbaru</span>
     <div className='articals' >
-      {/* <InfiniteScroll
-       dataLength={news.length}
-        next={fetchMoreData} 
-        hasMore={hasMore} 
-        loader={<p>Loading...</p>} 
-        endMessage={<p>You are all set!</p>} > */}
       {
         newsApp && newsApp.map((e)=>(
-          <div  >
+          <div className='artical' >
           <img className='img' src={e.urlToImage} />
           <p>{moment(e.publishedAt).format("Do MMMM YYYY")}</p>
           <p>{e.title}</p>
@@ -102,8 +99,9 @@ const Home = () => {
           </div>
         ))
       }
-      {/* </InfiniteScroll> */}
+
     </div>
+ 
     </div>
   )
 }
