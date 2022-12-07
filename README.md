@@ -1,5 +1,12 @@
-# Pocketful Web Assignment
+# Pocketful Web Assignment 📰
 
+ <h1> TECH STACK </h1>  <br>
+  1. REACT  <br>
+  2. Redux <br>
+  3. Chakara UI <br>
+  4. firebase <br>
+  5. HTML <br>
+  6. CSS
 
  
 
@@ -8,7 +15,7 @@
   <img src="https://user-images.githubusercontent.com/96183163/206062946-ce1ef343-d9de-4d0e-be8c-dd3dbc65698d.png" />
   # Login page
   <img src="https://user-images.githubusercontent.com/96183163/206063040-25758ebf-6c40-407b-a34d-1d60aa1b1548.png" />
-    # Home page
+  # Home page
   <img src="https://user-images.githubusercontent.com/96183163/206063298-d37a59d6-7924-4231-9cde-a601055b54a0.png" />
    
   <img src="https://user-images.githubusercontent.com/96183163/206063376-fb31c008-ed03-40a3-acbd-4b6cadc154f3.png" />
@@ -48,12 +55,6 @@
    1. SignIn by firebase <br>
    2. Signup by firebase<br>
  
- <h1> TECH STACK </h1>  <br>
-  1. REACT  <br>
-  2. Redux <br>
-  3. Chakara UI <br>
-  4. firebase <br>
-  5. HTML <br>
-  6. css 
+ 
 
 
